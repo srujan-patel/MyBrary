@@ -1,0 +1,13 @@
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Books.accdb
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\MyBrary.exe.config
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\MyBrary.exe
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\MyBrary.pdb
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.csproj.AssemblyReference.cache
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.csproj.SuggestedBindingRedirects.cache
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.authorsForm.resources
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.Properties.Resources.resources
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.csproj.GenerateResource.cache
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.csproj.CoreCompileInputs.cache
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.exe
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.pdb
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.PublisherForm.resources
