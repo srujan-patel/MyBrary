@@ -30,7 +30,6 @@ namespace MyBrary
 
             try
 
-
             {
                 string conString = Helper.ConVal("Books");
                 pubConnection = new OleDbConnection(conString);
@@ -62,6 +61,7 @@ namespace MyBrary
 
         }
 
+
         private void previousButton_Click(object sender, EventArgs e)
         {
             pubManager.Position--;
@@ -81,13 +81,13 @@ namespace MyBrary
                     {
                         nameText.ReadOnly = true;
                         companyText.ReadOnly = true;
-                        addressText.ReadOnly= true;
-                        cityText.ReadOnly= true;
-                        stateText.ReadOnly= true;   
-                        zipText.ReadOnly= true;
-                        telephoneText.ReadOnly= true;
-                        faxText.ReadOnly= true;
-                        commentsText.ReadOnly= true;
+                        addressText.ReadOnly = true;
+                        cityText.ReadOnly = true;
+                        stateText.ReadOnly = true;
+                        zipText.ReadOnly = true;
+                        telephoneText.ReadOnly = true;
+                        faxText.ReadOnly = true;
+                        commentsText.ReadOnly = true;
                         saveButton.Enabled = false;
                         cancelButton.Enabled = false;
                         previousButton.Enabled = true;
@@ -130,8 +130,8 @@ namespace MyBrary
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            try 
-            {  
+            try
+            {
 
                 SetAppState("Edit");
 
@@ -145,17 +145,17 @@ namespace MyBrary
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            try 
+            try
             {
                 SetAppState("Add");
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Adding Record Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-            
+
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -167,10 +167,10 @@ namespace MyBrary
         private bool ValidInput()
         {
 
-            bool isOK=true;
+            bool isOK = true;
             if (nameText.Text.Trim().Equals(""))
             {
-                MessageBox.Show("Publisher Name is Required","Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Publisher Name is Required", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 nameText.Focus();
                 isOK = false;
             }
@@ -184,8 +184,17 @@ namespace MyBrary
             {
                 return;
             }
-            try 
+            try
             {
+                pubManager.EndCurrentEdit();
+                OleDbCommandBuilder builderCommand = new OleDbCommandBuilder(pubAdapter);
+                var savedRecord = nameText.Text;
+                pubTable.DefaultView.Sort = "Name";
+                pubManager.Position = pubTable.DefaultView.Find(savedRecord);
+                pubAdapter.Update(pubTable);
+
+
+
                 MessageBox.Show("Record Saved", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 SetAppState("View");
 
@@ -205,10 +214,10 @@ namespace MyBrary
             {
                 return;
             }
-            try 
-            { 
+            try
+            {
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Deleting Record Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -217,7 +226,7 @@ namespace MyBrary
 
         private void txtInput_KeyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox textBox= (TextBox)sender;
+            TextBox textBox = (TextBox)sender;
             if (e.KeyChar == 13)
             {
                 switch (textBox.Name)
@@ -232,7 +241,7 @@ namespace MyBrary
                         cityText.Focus();
                         break;
                     case "cityText":
-                        stateText.Focus(); 
+                        stateText.Focus();
                         break;
                     case "stateText":
                         zipText.Focus();
@@ -249,7 +258,7 @@ namespace MyBrary
                     case "commentsText":
                         saveButton.Focus();
                         break;
-                        
+
 
 
                 }
@@ -268,7 +277,17 @@ namespace MyBrary
                 pubAdapter.Dispose();
                 pubTable.Dispose();
             }
-            
+
+        }
+
+        private void firstButton_Click(object sender, EventArgs e)
+        {
+            pubManager.Position = 0;
+        }
+
+        private void lastButton_Click(object sender, EventArgs e)
+        {
+            pubManager.Position = pubManager.Count-1;
         }
     }
 }

@@ -56,6 +56,8 @@
             this.doneButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
+            this.firstButton = new System.Windows.Forms.Button();
+            this.lastButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // publisherIDLabel
@@ -328,11 +330,33 @@
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
+            // firstButton
+            // 
+            this.firstButton.Location = new System.Drawing.Point(32, 433);
+            this.firstButton.Name = "firstButton";
+            this.firstButton.Size = new System.Drawing.Size(75, 33);
+            this.firstButton.TabIndex = 28;
+            this.firstButton.Text = "First";
+            this.firstButton.UseVisualStyleBackColor = true;
+            this.firstButton.Click += new System.EventHandler(this.firstButton_Click);
+            // 
+            // lastButton
+            // 
+            this.lastButton.Location = new System.Drawing.Point(400, 433);
+            this.lastButton.Name = "lastButton";
+            this.lastButton.Size = new System.Drawing.Size(75, 33);
+            this.lastButton.TabIndex = 29;
+            this.lastButton.Text = "Last";
+            this.lastButton.UseVisualStyleBackColor = true;
+            this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
+            // 
             // PublisherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(514, 577);
+            this.Controls.Add(this.lastButton);
+            this.Controls.Add(this.firstButton);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.doneButton);
@@ -402,5 +426,7 @@
         private System.Windows.Forms.Button doneButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button firstButton;
+        private System.Windows.Forms.Button lastButton;
     }
 }

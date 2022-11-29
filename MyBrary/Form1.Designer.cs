@@ -43,6 +43,8 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.doneButton = new System.Windows.Forms.Button();
             this.wrongInputLabel = new System.Windows.Forms.Label();
+            this.lastButton = new System.Windows.Forms.Button();
+            this.firstButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // authorIDLabel
@@ -183,6 +185,7 @@
             this.doneButton.TabIndex = 13;
             this.doneButton.Text = "D&one";
             this.doneButton.UseVisualStyleBackColor = true;
+            this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
             // 
             // wrongInputLabel
             // 
@@ -195,11 +198,33 @@
             this.wrongInputLabel.Text = "Wrong Input";
             this.wrongInputLabel.Visible = false;
             // 
+            // lastButton
+            // 
+            this.lastButton.Location = new System.Drawing.Point(506, 314);
+            this.lastButton.Name = "lastButton";
+            this.lastButton.Size = new System.Drawing.Size(100, 40);
+            this.lastButton.TabIndex = 15;
+            this.lastButton.Text = "Last";
+            this.lastButton.UseVisualStyleBackColor = true;
+            this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
+            // 
+            // firstButton
+            // 
+            this.firstButton.Location = new System.Drawing.Point(26, 314);
+            this.firstButton.Name = "firstButton";
+            this.firstButton.Size = new System.Drawing.Size(100, 40);
+            this.firstButton.TabIndex = 16;
+            this.firstButton.Text = "First";
+            this.firstButton.UseVisualStyleBackColor = true;
+            this.firstButton.Click += new System.EventHandler(this.firstButton_Click);
+            // 
             // authorsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 565);
+            this.Controls.Add(this.firstButton);
+            this.Controls.Add(this.lastButton);
             this.Controls.Add(this.wrongInputLabel);
             this.Controls.Add(this.doneButton);
             this.Controls.Add(this.deleteButton);
@@ -243,6 +268,8 @@
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button doneButton;
         private System.Windows.Forms.Label wrongInputLabel;
+        private System.Windows.Forms.Button lastButton;
+        private System.Windows.Forms.Button firstButton;
     }
 }
 

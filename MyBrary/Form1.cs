@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,7 +26,12 @@ namespace MyBrary
         OleDbDataAdapter authorsAdapter;
         DataTable authorsTable;
         CurrencyManager authorsManager;
+        OleDbCommandBuilder builderCommand;
         bool dbError=false;
+
+        public string AppState { get; set; }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -44,7 +51,7 @@ namespace MyBrary
                 authorNameText.DataBindings.Add("Text", authorsTable, "Author");
                 authorYearBornText.DataBindings.Add("Text", authorsTable, "Year_Born");
 
-                authorsManager = (CurrencyManager)BindingContext[authorsTable];
+                authorsManager = (CurrencyManager)BindingContext[authorsTable]; // currency manager holds a list of the records
                 SetAppliicationState("View");
 
 
@@ -83,6 +90,8 @@ namespace MyBrary
 
         }
 
+      
+
         private void saveButton_Click(object sender, EventArgs e)
         {
 
@@ -92,6 +101,42 @@ namespace MyBrary
             }
             try
             {
+               
+                
+                authorsManager.EndCurrentEdit();
+                builderCommand= new OleDbCommandBuilder(authorsAdapter);
+
+                //var authRow = authorsTable.Select("AU_ID= ", authorIDText.Text); //filter statement returns records with the value specified in the braces
+                //if (String.IsNullOrEmpty(authorIDText.Text)) { 
+                //authRow[0]["Year Born"]=DBNull.Value;
+                //        }
+                //else
+                //{
+                //    authRow[0]["Year Born"] = authorYearBornText.Text;
+                //}
+
+                //authorYearBornText.DataBindings.Add("Text", authorsTable, "Year_Born");
+                //authorsAdapter.Update(authorsTable);
+                if (AppState == "Edit") { 
+                var authRow = authorsTable.Select("Au_ID = " + authorIDText.Text);
+
+                if (String.IsNullOrEmpty(authorYearBornText.Text))
+                    authRow[0]["Year_Born"] = DBNull.Value;
+                else
+                    authRow[0]["Year_Born"] = authorYearBornText.Text;
+
+                authorsAdapter.Update(authorsTable);
+                authorYearBornText.DataBindings.Add("Text", authorsTable, "Year_Born");
+                }
+
+                else
+                {   var savedRecord= authorNameText.Text;   
+                    authorsTable.DefaultView.Sort = "Author";
+                    authorsManager.Position= authorsTable.DefaultView.Find(savedRecord);
+                    authorsAdapter.Update(authorsTable);
+
+                }
+
                 MessageBox.Show("Record Saved", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 SetAppliicationState("View");
 
@@ -116,7 +161,15 @@ namespace MyBrary
             }
 
             try 
-            { 
+            {
+                //currency manager holds a list of records hence hence we can use the removeat method for removing the records
+                AppState = "delete";
+                authorsManager.RemoveAt(authorsManager.Position);
+                //it removes from the list doesnot update the database
+                builderCommand = new OleDbCommandBuilder(authorsAdapter);
+                authorsAdapter.Update(authorsTable);
+
+
             }
             catch(Exception ex) 
             {
@@ -157,7 +210,7 @@ namespace MyBrary
                     authorNameText.Focus();
                     
                     break;
-
+                    
                 
 
             }
@@ -166,7 +219,10 @@ namespace MyBrary
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            authorYearBornText.DataBindings.Clear(); //clear the bindings for changing the year records
             SetAppliicationState("Edit");
+            AppState="Edit";
+
         }
 
         private void addNewButton_Click(object sender, EventArgs e)
@@ -174,7 +230,11 @@ namespace MyBrary
 
             try
             {
+                authorsManager.AddNew();
+
                 SetAppliicationState("Add");
+                AppState="Add";
+                
 
             }
             catch (Exception ex)
@@ -186,6 +246,11 @@ namespace MyBrary
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            if (AppState == "Add")
+            {
+                authorsManager.Position = 0;
+                SetAppliicationState("View");
+            }
             SetAppliicationState("View");
         }
 
@@ -244,6 +309,21 @@ namespace MyBrary
             {
                 authorYearBornText.Focus();
             }
+        }
+
+        private void firstButton_Click(object sender, EventArgs e)
+        {
+            authorsManager.Position = 0;
+        }
+
+        private void lastButton_Click(object sender, EventArgs e)
+        {
+            authorsManager.Position = authorsManager.Count-1;
+        }
+
+        private void doneButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
