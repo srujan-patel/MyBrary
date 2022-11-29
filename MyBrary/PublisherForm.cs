@@ -24,6 +24,7 @@ namespace MyBrary
         DataTable pubTable;
         CurrencyManager pubManager;
         bool conOK = true;
+        public String AppState { get; set; }
 
         private void PublisherForm_Load(object sender, EventArgs e)
         {
@@ -134,6 +135,7 @@ namespace MyBrary
             {
 
                 SetAppState("Edit");
+                AppState = "Edit";
 
             }
             catch (Exception ex)
@@ -147,7 +149,9 @@ namespace MyBrary
         {
             try
             {
+                pubManager.AddNew();
                 SetAppState("Add");
+                AppState="Add"; 
             }
 
             catch (Exception ex)
@@ -216,6 +220,12 @@ namespace MyBrary
             }
             try
             {
+
+                pubManager.RemoveAt(pubManager.Position);
+                OleDbCommandBuilder builderCommand = new OleDbCommandBuilder(pubAdapter);
+                pubAdapter.Update(pubTable);
+                AppState="Delete"
+
             }
             catch (Exception ex)
             {
