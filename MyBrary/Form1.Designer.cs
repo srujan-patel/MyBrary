@@ -45,6 +45,9 @@
             this.wrongInputLabel = new System.Windows.Forms.Label();
             this.lastButton = new System.Windows.Forms.Button();
             this.firstButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.searchButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // authorIDLabel
@@ -109,9 +112,9 @@
             // 
             // previousButton
             // 
-            this.previousButton.Location = new System.Drawing.Point(162, 314);
+            this.previousButton.Location = new System.Drawing.Point(247, 314);
             this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(111, 40);
+            this.previousButton.Size = new System.Drawing.Size(94, 40);
             this.previousButton.TabIndex = 6;
             this.previousButton.Text = "Previous";
             this.previousButton.UseVisualStyleBackColor = true;
@@ -119,9 +122,9 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(346, 314);
+            this.btnNext.Location = new System.Drawing.Point(503, 314);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(111, 40);
+            this.btnNext.Size = new System.Drawing.Size(93, 40);
             this.btnNext.TabIndex = 7;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -129,9 +132,9 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(84, 370);
+            this.editButton.Location = new System.Drawing.Point(244, 370);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(111, 40);
+            this.editButton.Size = new System.Drawing.Size(97, 40);
             this.editButton.TabIndex = 8;
             this.editButton.Text = "&Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -139,9 +142,9 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(267, 370);
+            this.saveButton.Location = new System.Drawing.Point(372, 314);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(111, 40);
+            this.saveButton.Size = new System.Drawing.Size(97, 40);
             this.saveButton.TabIndex = 9;
             this.saveButton.Text = "&Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -149,9 +152,9 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(431, 370);
+            this.cancelButton.Location = new System.Drawing.Point(506, 370);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(111, 40);
+            this.cancelButton.Size = new System.Drawing.Size(97, 40);
             this.cancelButton.TabIndex = 10;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -159,9 +162,9 @@
             // 
             // addNewButton
             // 
-            this.addNewButton.Location = new System.Drawing.Point(84, 433);
+            this.addNewButton.Location = new System.Drawing.Point(244, 433);
             this.addNewButton.Name = "addNewButton";
-            this.addNewButton.Size = new System.Drawing.Size(111, 40);
+            this.addNewButton.Size = new System.Drawing.Size(97, 40);
             this.addNewButton.TabIndex = 11;
             this.addNewButton.Text = "&Add New";
             this.addNewButton.UseVisualStyleBackColor = true;
@@ -169,9 +172,9 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(267, 433);
+            this.deleteButton.Location = new System.Drawing.Point(372, 370);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(111, 40);
+            this.deleteButton.Size = new System.Drawing.Size(97, 40);
             this.deleteButton.TabIndex = 12;
             this.deleteButton.Text = "&Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -179,9 +182,9 @@
             // 
             // doneButton
             // 
-            this.doneButton.Location = new System.Drawing.Point(434, 433);
+            this.doneButton.Location = new System.Drawing.Point(509, 433);
             this.doneButton.Name = "doneButton";
-            this.doneButton.Size = new System.Drawing.Size(111, 40);
+            this.doneButton.Size = new System.Drawing.Size(97, 40);
             this.doneButton.TabIndex = 13;
             this.doneButton.Text = "D&one";
             this.doneButton.UseVisualStyleBackColor = true;
@@ -200,7 +203,7 @@
             // 
             // lastButton
             // 
-            this.lastButton.Location = new System.Drawing.Point(506, 314);
+            this.lastButton.Location = new System.Drawing.Point(369, 497);
             this.lastButton.Name = "lastButton";
             this.lastButton.Size = new System.Drawing.Size(100, 40);
             this.lastButton.TabIndex = 15;
@@ -210,7 +213,7 @@
             // 
             // firstButton
             // 
-            this.firstButton.Location = new System.Drawing.Point(26, 314);
+            this.firstButton.Location = new System.Drawing.Point(372, 433);
             this.firstButton.Name = "firstButton";
             this.firstButton.Size = new System.Drawing.Size(100, 40);
             this.firstButton.TabIndex = 16;
@@ -218,11 +221,40 @@
             this.firstButton.UseVisualStyleBackColor = true;
             this.firstButton.Click += new System.EventHandler(this.firstButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 345);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(165, 23);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Search For Author";
+            // 
+            // searchText
+            // 
+            this.searchText.Location = new System.Drawing.Point(22, 395);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(200, 31);
+            this.searchText.TabIndex = 18;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(62, 463);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(107, 40);
+            this.searchButton.TabIndex = 19;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
             // authorsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 565);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.searchText);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.firstButton);
             this.Controls.Add(this.lastButton);
             this.Controls.Add(this.wrongInputLabel);
@@ -270,6 +302,9 @@
         private System.Windows.Forms.Label wrongInputLabel;
         private System.Windows.Forms.Button lastButton;
         private System.Windows.Forms.Button firstButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox searchText;
+        private System.Windows.Forms.Button searchButton;
     }
 }
 

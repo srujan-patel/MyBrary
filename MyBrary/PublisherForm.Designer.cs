@@ -58,6 +58,9 @@
             this.nextButton = new System.Windows.Forms.Button();
             this.firstButton = new System.Windows.Forms.Button();
             this.lastButton = new System.Windows.Forms.Button();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.searchButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // publisherIDLabel
@@ -245,7 +248,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(211, 523);
+            this.deleteButton.Location = new System.Drawing.Point(338, 523);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(93, 33);
@@ -256,10 +259,10 @@
             // 
             // previousButton
             // 
-            this.previousButton.Location = new System.Drawing.Point(142, 433);
+            this.previousButton.Location = new System.Drawing.Point(226, 430);
             this.previousButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(93, 33);
+            this.previousButton.Size = new System.Drawing.Size(93, 38);
             this.previousButton.TabIndex = 21;
             this.previousButton.Text = "Previous";
             this.previousButton.UseVisualStyleBackColor = true;
@@ -267,7 +270,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(329, 472);
+            this.cancelButton.Location = new System.Drawing.Point(440, 472);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(93, 33);
@@ -278,7 +281,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(211, 472);
+            this.saveButton.Location = new System.Drawing.Point(338, 472);
             this.saveButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(93, 33);
@@ -289,7 +292,7 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(91, 472);
+            this.editButton.Location = new System.Drawing.Point(226, 477);
             this.editButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(93, 33);
@@ -300,17 +303,18 @@
             // 
             // doneButton
             // 
-            this.doneButton.Location = new System.Drawing.Point(329, 523);
+            this.doneButton.Location = new System.Drawing.Point(440, 523);
             this.doneButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(93, 33);
             this.doneButton.TabIndex = 25;
             this.doneButton.Text = "D&one";
             this.doneButton.UseVisualStyleBackColor = true;
+            this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(91, 523);
+            this.addButton.Location = new System.Drawing.Point(226, 523);
             this.addButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(93, 33);
@@ -321,7 +325,7 @@
             // 
             // nextButton
             // 
-            this.nextButton.Location = new System.Drawing.Point(280, 433);
+            this.nextButton.Location = new System.Drawing.Point(338, 433);
             this.nextButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(93, 33);
@@ -332,9 +336,9 @@
             // 
             // firstButton
             // 
-            this.firstButton.Location = new System.Drawing.Point(32, 433);
+            this.firstButton.Location = new System.Drawing.Point(121, 523);
             this.firstButton.Name = "firstButton";
-            this.firstButton.Size = new System.Drawing.Size(75, 33);
+            this.firstButton.Size = new System.Drawing.Size(100, 33);
             this.firstButton.TabIndex = 28;
             this.firstButton.Text = "First";
             this.firstButton.UseVisualStyleBackColor = true;
@@ -342,7 +346,7 @@
             // 
             // lastButton
             // 
-            this.lastButton.Location = new System.Drawing.Point(400, 433);
+            this.lastButton.Location = new System.Drawing.Point(458, 433);
             this.lastButton.Name = "lastButton";
             this.lastButton.Size = new System.Drawing.Size(75, 33);
             this.lastButton.TabIndex = 29;
@@ -350,11 +354,40 @@
             this.lastButton.UseVisualStyleBackColor = true;
             this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
             // 
+            // searchLabel
+            // 
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(12, 438);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(173, 22);
+            this.searchLabel.TabIndex = 30;
+            this.searchLabel.Text = "Search for Publisher";
+            // 
+            // searchText
+            // 
+            this.searchText.Location = new System.Drawing.Point(32, 474);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(164, 28);
+            this.searchText.TabIndex = 31;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(23, 523);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(92, 33);
+            this.searchButton.TabIndex = 32;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
             // PublisherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 577);
+            this.ClientSize = new System.Drawing.Size(587, 577);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.searchText);
+            this.Controls.Add(this.searchLabel);
             this.Controls.Add(this.lastButton);
             this.Controls.Add(this.firstButton);
             this.Controls.Add(this.nextButton);
@@ -428,5 +461,8 @@
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Button firstButton;
         private System.Windows.Forms.Button lastButton;
+        private System.Windows.Forms.Label searchLabel;
+        private System.Windows.Forms.TextBox searchText;
+        private System.Windows.Forms.Button searchButton;
     }
 }

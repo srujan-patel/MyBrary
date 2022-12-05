@@ -21,16 +21,7 @@ namespace MyBrary
             InitializeComponent();
         }
 
-        OleDbConnection booksConnection;
-        OleDbCommand authorsCommand;
-        OleDbDataAdapter authorsAdapter;
-        DataTable authorsTable;
-        CurrencyManager authorsManager;
-        OleDbCommandBuilder builderCommand;
-        bool dbError=false;
-
-        public string AppState { get; set; }
-
+       
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -101,8 +92,8 @@ namespace MyBrary
             }
             try
             {
-               
-                
+                var savedRecord = authorNameText.Text;
+
                 authorsManager.EndCurrentEdit();
                 builderCommand= new OleDbCommandBuilder(authorsAdapter);
 
@@ -130,7 +121,7 @@ namespace MyBrary
                 }
 
                 else
-                {   var savedRecord= authorNameText.Text;   
+                {     
                     authorsTable.DefaultView.Sort = "Author";
                     authorsManager.Position= authorsTable.DefaultView.Find(savedRecord);
                     authorsAdapter.Update(authorsTable);
@@ -195,6 +186,10 @@ namespace MyBrary
                     doneButton.Enabled = true;
                     authorNameText.TabStop = false;
                     authorYearBornText.TabStop=false;
+                    firstButton.Enabled = true;
+                    lastButton.Enabled = true;
+                    searchButton.Enabled=true;
+                    searchText.Enabled=true;
                     break;
 
                 default:
@@ -207,6 +202,11 @@ namespace MyBrary
                     addNewButton.Enabled = false;
                     deleteButton.Enabled = false;
                     doneButton.Enabled = false;
+                    firstButton.Enabled = false;
+                    lastButton.Enabled = false;
+                    searchButton.Enabled = false;
+                    searchText.Enabled = false;
+
                     authorNameText.Focus();
                     
                     break;
@@ -229,7 +229,8 @@ namespace MyBrary
         {
 
             try
-            {
+            {   
+                CurrentPosition=authorsManager.Position;
                 authorsManager.AddNew();
 
                 SetAppliicationState("Add");
@@ -246,11 +247,16 @@ namespace MyBrary
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+           authorsManager.CancelCurrentEdit();
+            if (AppState == "Edit")
+            {
+                authorYearBornText.DataBindings.Add("Text", authorsTable, "Year_Born");
+            }
             if (AppState == "Add")
             {
-                authorsManager.Position = 0;
-                SetAppliicationState("View");
+                authorsManager.Position = CurrentPosition;
             }
+           
             SetAppliicationState("View");
         }
 
@@ -325,5 +331,46 @@ namespace MyBrary
         {
             Close();
         }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            if (searchText.Text.Equals("") || searchText.Text.Length < 3)
+            {
+                MessageBox.Show("Invalid Search", "Invalid Search", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
+            
+            authorsTable.DefaultView.Sort = "Author";
+            var foundRecords = authorsTable.Select(Helper.GetAuthorSearchCommand(searchText.Text));
+
+            if (foundRecords.Length==0)
+            {
+                MessageBox.Show("Nothing Was Found", "Nothing was Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            }
+
+            else
+            {
+                authorsManager.Position = authorsTable.DefaultView.Find(foundRecords[0]["Author"]);
+            }
+        }
+
+
+        OleDbConnection booksConnection;
+        OleDbCommand authorsCommand;
+        OleDbDataAdapter authorsAdapter;
+        DataTable authorsTable;
+        CurrencyManager authorsManager;
+        OleDbCommandBuilder builderCommand;
+        public int CurrentPosition { get; set; }
+
+        bool dbError = false;
+
+        public string AppState { get; set; }
+
+
     }
+
 }

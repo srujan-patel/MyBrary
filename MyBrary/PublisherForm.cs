@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,13 +19,6 @@ namespace MyBrary
             InitializeComponent();
         }
 
-        OleDbConnection pubConnection;
-        OleDbCommand pubCommand;
-        OleDbDataAdapter pubAdapter;
-        DataTable pubTable;
-        CurrencyManager pubManager;
-        bool conOK = true;
-        public String AppState { get; set; }
 
         private void PublisherForm_Load(object sender, EventArgs e)
         {
@@ -97,9 +91,12 @@ namespace MyBrary
                         addButton.Enabled = true;
                         deleteButton.Enabled = true;
                         doneButton.Enabled = true;
+                        firstButton.Enabled = true;
+                        lastButton.Enabled = false;
+                        searchText.Enabled = true;
+                        searchLabel.Enabled = true;
 
-
-
+                        nameText.Focus();
                         break;
                     }
                 default:
@@ -121,6 +118,10 @@ namespace MyBrary
                         addButton.Enabled = false;
                         deleteButton.Enabled = false;
                         doneButton.Enabled = false;
+                        searchText.Enabled = false;
+                        searchLabel.Enabled = false;
+
+
                         nameText.Focus();
 
                         break;
@@ -149,9 +150,10 @@ namespace MyBrary
         {
             try
             {
+                CurrentPosition = pubManager.Position;
                 pubManager.AddNew();
                 SetAppState("Add");
-                AppState="Add"; 
+                AppState = "Add";
             }
 
             catch (Exception ex)
@@ -164,7 +166,11 @@ namespace MyBrary
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+        
+            pubManager.CancelCurrentEdit();
+            pubManager.Position = CurrentPosition;
             SetAppState("View");
+
         }
 
 
@@ -190,9 +196,10 @@ namespace MyBrary
             }
             try
             {
+                var savedRecord = nameText.Text;
+
                 pubManager.EndCurrentEdit();
                 OleDbCommandBuilder builderCommand = new OleDbCommandBuilder(pubAdapter);
-                var savedRecord = nameText.Text;
                 pubTable.DefaultView.Sort = "Name";
                 pubManager.Position = pubTable.DefaultView.Find(savedRecord);
                 pubAdapter.Update(pubTable);
@@ -224,7 +231,7 @@ namespace MyBrary
                 pubManager.RemoveAt(pubManager.Position);
                 OleDbCommandBuilder builderCommand = new OleDbCommandBuilder(pubAdapter);
                 pubAdapter.Update(pubTable);
-                AppState="Delete"
+                AppState = "Delete";
 
             }
             catch (Exception ex)
@@ -297,7 +304,65 @@ namespace MyBrary
 
         private void lastButton_Click(object sender, EventArgs e)
         {
-            pubManager.Position = pubManager.Count-1;
+            pubManager.Position = pubManager.Count - 1;
         }
+
+        private void doneButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            //if (searchText.Text.Equals("") || searchText.Text.Length < 3)
+            //{
+            //    MessageBox.Show("Invalid Search", "Invalid Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
+
+            //   pubTable.DefaultView.Sort = "Name";
+            //    DataRow[] foundRows;
+            //    foundRows= pubTable.Select("Name LIKE '*" + searchText.Text + "*'"); //datarow
+            //    if (foundRows.Length == 0)
+            //    {
+            //        MessageBox.Show("No Record Found", "No Record Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //    }
+            //else
+            //    {
+            //    pubManager.Position = pubTable.DefaultView.Find(foundRows[0]["Name"]);//returns the whole record we are onlt interested in Name
+
+            //    }
+
+            if (searchText.Text.Equals("") || searchText.Text.Length < 3)
+            {
+                MessageBox.Show("Invalid Search", "Invalid Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataRow[] foundRecords;
+            pubTable.DefaultView.Sort = "Name";
+            foundRecords = pubTable.Select(Helper.GetSearchCommand(searchText.Text));
+
+            if (foundRecords.Length == 0)
+            {
+                MessageBox.Show("No record found", "No record found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                pubManager.Position = pubTable.DefaultView.Find(foundRecords[0]["Name"]);
+            }
+
+
+        }
+
+        OleDbConnection pubConnection;
+        OleDbCommand pubCommand;
+        OleDbDataAdapter pubAdapter;
+        DataTable pubTable;
+        CurrencyManager pubManager;
+        bool conOK = true;
+        public String AppState { get; set; }
+        public int CurrentPosition{get; set;}
     }
 }
