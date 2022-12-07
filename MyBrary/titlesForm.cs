@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,6 +28,23 @@ namespace MyBrary
         public int CurrentPosition { get; set; }
 
         public string AppState { get; set; }
+
+
+
+
+        OleDbCommand authorsCommand;
+        OleDbDataAdapter authorsAdapter;
+        DataTable[] authorsTable = new DataTable[4];
+        CurrencyManager authorsManager;
+        OleDbCommandBuilder authorsBuilder;
+        ComboBox[] authorCombo = new ComboBox[4];
+        OleDbCommand ISBNauthorsCommand;
+        OleDbDataAdapter ISBNAuthorsAdapter;
+        DataTable ISBNAuthorsTable;
+
+        OleDbCommand publisherCom;
+        OleDbDataAdapter publisherAdapter;
+        DataTable publisherTable;
 
 
         private void titlesForm_Load(object sender, EventArgs e)
@@ -52,7 +70,50 @@ namespace MyBrary
                 //commentsText.DataBindings.Add("Text", titlesTable, "Comments");
 
                 titlesManager = (CurrencyManager)BindingContext[titlesTable];
+
+
+
+                //authors table is only linked using Author_ID table
+                authorCombo[0] = author1Combox;
+                authorCombo[1] = author2Combo;
+                authorCombo[2] = author3Combo;
+                authorCombo[3] = author4Combo;
+               authorsCommand = new OleDbCommand(Helper.GetAuthorCommand(), booksConnection);
+                authorsAdapter = new OleDbDataAdapter();
+                authorsAdapter.SelectCommand = authorsCommand;
+                for(int i =0; i<4; i++)
+                {
+
+                    authorsTable[i] = new DataTable();
+                    authorsAdapter.Fill(authorsTable[i]);
+
+                    authorCombo[i].DataSource = authorsTable[i];
+                    authorCombo[i].DisplayMember = "Author";
+                    authorCombo[i].ValueMember = "Au_ID";
+                    authorCombo[i].SelectedIndex = -1;
+
+                }
+               
+                //publisher is direclty linked with titles table
+
+                publisherCom = new OleDbCommand(Helper.GetPUblisherCommand(), booksConnection);//select alll publishers
+                publisherAdapter=new OleDbDataAdapter();
+                publisherTable = new DataTable();
+                publisherAdapter.SelectCommand = publisherCom;
+                publisherAdapter.Fill(publisherTable);
+
+                publisherCombo.DataSource=publisherTable;
+                publisherCombo.DisplayMember = "Name";//display name
+                publisherCombo.ValueMember = "PUbID";//underlying value is pubid
+                publisherCombo.DataBindings.Add("SelectedValue", titlesTable, "PubID"); //bind the selected value in the publisher table to titles table publishers
+
+
+
+
+
+
                 SetAppState("View");
+                GetAuthors();
             }
             catch (Exception ex)
             {
@@ -71,11 +132,6 @@ namespace MyBrary
 
 
 
-
-        private void publishersButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void editButton_Click(object sender, EventArgs e)
         {
@@ -109,11 +165,41 @@ namespace MyBrary
                 else
                 {
 
-                    titlesTable.DefaultView.Sort = "Title";
-                    titlesManager.Position = titlesTable.DefaultView.Find(savedRecord);
+               
                     titlesAdapter.Update(titlesTable);
+                    titlesTable.DefaultView.Sort="Title";
+                    var foundRecords = titlesTable.Select(Helper.GetTitleISBNCommand(savedRecord));
+                    titlesManager.Position = titlesTable.DefaultView.Find(foundRecords[0]["Title"]);
+
 
                 }
+
+
+                titlesBuilder = new OleDbCommandBuilder(ISBNAuthorsAdapter);
+                if (ISBNAuthorsTable.Rows.Count != 0)
+                {
+                    for(int i=0; i < ISBNAuthorsTable.Rows.Count; i++)
+                    {
+                        ISBNAuthorsTable.Rows[i].Delete();
+
+                    }
+
+                    ISBNAuthorsAdapter.Update(ISBNAuthorsTable);
+
+                }
+
+                for(int i=0;i<4; i++)
+                {
+                    if (authorCombo[i].SelectedIndex != -1)
+                    {
+                        ISBNAuthorsTable.Rows.Add();
+                        ISBNAuthorsTable.Rows[ISBNAuthorsTable.Rows.Count-1]["ISBN"]=isbnText.Text;
+                        ISBNAuthorsTable.Rows[ISBNAuthorsTable.Rows.Count - 1]["Au_ID"] = authorCombo[i].SelectedValue;
+                    }
+                }
+                ISBNAuthorsAdapter.Update(ISBNAuthorsTable);
+
+
                 MessageBox.Show("Record Saved", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 SetAppState("View");
 
@@ -155,21 +241,25 @@ namespace MyBrary
         private void firstButton_Click(object sender, EventArgs e)
         {
             titlesManager.Position = 0;
+            GetAuthors();
         }
 
         private void prevButton_Click(object sender, EventArgs e)
         {
             titlesManager.Position--;
+            GetAuthors();
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
             titlesManager.Position++;
+            GetAuthors();
         }
 
         private void lastButton_Click(object sender, EventArgs e)
         {
             titlesManager.Position = titlesManager.Count-1;
+            GetAuthors();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -201,11 +291,7 @@ namespace MyBrary
             Close();
         }
 
-        private void authorsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
+   
         private void findButton_Click(object sender, EventArgs e)
         {
 
@@ -226,6 +312,7 @@ namespace MyBrary
             else
             {
                 titlesManager.Position = titlesTable.DefaultView.Find(foundRecords[0]["Title"]);
+                GetAuthors();
             }
 
 
@@ -266,6 +353,18 @@ namespace MyBrary
                     cancelButton.Enabled= false;
                     addButton.Enabled= true;
                     deleteButton.Enabled= true;
+
+                    author1Combox.Enabled= false;
+                    author2Combo.Enabled= false;
+                    author3Combo.Enabled= false;
+                    author4Combo.Enabled = false;
+
+
+                    author1Button.Enabled=false;
+                    author2Button.Enabled = false;
+                    author3Button.Enabled = false;
+                    author4Button.Enabled = false;
+
                     break;
 
                 default:
@@ -296,6 +395,19 @@ namespace MyBrary
                     cancelButton.Enabled = true;
                     addButton.Enabled = false;
                     deleteButton.Enabled = false;
+
+
+
+                    author1Combox.Enabled = true;
+                    author2Combo.Enabled = true;
+                    author3Combo.Enabled = true;
+                    author4Combo.Enabled = true;
+
+
+                    author1Button.Enabled = true;
+                    author2Button.Enabled = true;
+                    author3Button.Enabled = true;
+                    author4Button.Enabled = true;
 
                     break;
             }
@@ -352,24 +464,114 @@ namespace MyBrary
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+     
+
+        private void GetAuthors()
         {
+            for (int i=0; i<4; i++)
+            {
+                authorCombo[i].SelectedIndex = -1;
+            }
+            ISBNauthorsCommand = new OleDbCommand(Helper.GetISBNCommand(isbnText.Text), booksConnection);
+            ISBNAuthorsAdapter = new OleDbDataAdapter();
+            ISBNAuthorsAdapter.SelectCommand = ISBNauthorsCommand;
+            ISBNAuthorsTable = new DataTable();
+            ISBNAuthorsAdapter.Fill(ISBNAuthorsTable);
+
+
+            if (ISBNAuthorsTable.Rows.Count == 0)
+            {
+                return;
+            }
+            
+            for(int i =0; i<ISBNAuthorsTable.Rows.Count; i++)
+            {
+
+
+                authorCombo[i].SelectedValue = ISBNAuthorsTable.Rows[i]["Au_ID"].ToString();
+
+
+            }
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnauthorx_Click(object sender, EventArgs e)
         {
+            Button btnClicked = (Button)sender;
+            switch(btnClicked.Name){
+
+                case "author1Button":
+                    author1Combox.SelectedIndex = -1;
+                    break;
+                case "author2Button":
+                    author2Combo.SelectedIndex = -1;
+                    break;
+
+                case "author3Button":
+                    author3Combo.SelectedIndex = -1;
+                    break;
+
+                case "author4Button":
+                    author4Combo.SelectedIndex = -1;
+                    break;
+
+            }
+
+        }
+        private void authorsButton_Click(object sender, EventArgs e)
+        {
+            authorsForm athForm=new authorsForm();
+            athForm.ShowDialog();
+            athForm.Dispose();
+            booksConnection.Close();
+
+
+
+            string conString = Helper.ConVal("Books");
+            booksConnection = new OleDbConnection(conString);
+            booksConnection.Open();
+            authorsAdapter.SelectCommand = authorsCommand;
+
+            for(int i = 0; i < 4; i++) {
+
+                authorsTable[i] = new DataTable();
+                authorsAdapter.Fill(authorsTable[i]);
+                authorCombo[i].DataSource = authorsTable[i];
+            
+            }
+            GetAuthors();
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        private void publishersButton_Click(object sender, EventArgs e)
         {
+            PublisherForm pubForm = new PublisherForm();
+
+            pubForm.ShowDialog();   
+            pubForm.Dispose();
+            booksConnection.Close();
+
+
+            string conString = Helper.ConVal("Books");
+            booksConnection = new OleDbConnection(conString);
+            booksConnection.Open();
+            publisherCombo.DataBindings.Clear();
+            publisherAdapter.SelectCommand = publisherCom;
+            publisherTable=new DataTable();
+            publisherAdapter.Fill(publisherTable);
+
+            publisherCombo.DataSource=publisherTable;
+
+            publisherCombo.DisplayMember = "Name";//display name
+            publisherCombo.ValueMember = "PUbID";//underlying value is pubid
+            publisherCombo.DataBindings.Add("SelectedValue", titlesTable, "PubID"); //bind the selected value in the publisher table to titles table publishers
+
+
+
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }

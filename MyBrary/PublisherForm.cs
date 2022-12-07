@@ -35,6 +35,10 @@ namespace MyBrary
                 pubTable = new DataTable();
                 pubAdapter.Fill(pubTable);
 
+
+
+
+
                 publisherIDText.DataBindings.Add("Text", pubTable, "PubID");
                 nameText.DataBindings.Add("Text", pubTable, "Name");
                 companyText.DataBindings.Add("Text", pubTable, "Company_Name");

@@ -59,10 +59,27 @@ namespace MyBrary
 
             return "Title LIKE '*" + sender + "*'";
 
+        }
+        public static string GetTitleISBNCommand(string sender)
+        {
 
+            return "ISBN= '" + sender + "'";
+
+        }
+        public static string GetISBNCommand(string sender)
+        {
+            string command = "SELECT * from Title_Author WHERE ISBN='"+ sender+"'" ;
+            return command;
 
         }
 
+
+        public static string GetPUblisherCommand()
+        {
+            string command = "SELECT * from Publishers Order By Name";
+            return command;
+
+        }
 
     }
 }

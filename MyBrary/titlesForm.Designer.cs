@@ -56,7 +56,7 @@
             this.publishersButton = new System.Windows.Forms.Button();
             this.isbnText = new System.Windows.Forms.MaskedTextBox();
             this.author2Combo = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.author1Combox = new System.Windows.Forms.ComboBox();
             this.author3Combo = new System.Windows.Forms.ComboBox();
             this.author4Combo = new System.Windows.Forms.ComboBox();
             this.publisherCombo = new System.Windows.Forms.ComboBox();
@@ -352,14 +352,14 @@
             this.author2Combo.Size = new System.Drawing.Size(121, 28);
             this.author2Combo.TabIndex = 31;
             // 
-            // comboBox2
+            // author1Combox
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(172, 127);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 28);
-            this.comboBox2.TabIndex = 32;
+            this.author1Combox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.author1Combox.FormattingEnabled = true;
+            this.author1Combox.Location = new System.Drawing.Point(172, 127);
+            this.author1Combox.Name = "author1Combox";
+            this.author1Combox.Size = new System.Drawing.Size(121, 28);
+            this.author1Combox.TabIndex = 32;
             // 
             // author3Combo
             // 
@@ -446,7 +446,7 @@
             this.author1Button.TabIndex = 41;
             this.author1Button.Text = "x";
             this.author1Button.UseVisualStyleBackColor = true;
-            this.author1Button.Click += new System.EventHandler(this.button1_Click);
+            this.author1Button.Click += new System.EventHandler(this.btnauthorx_Click);
             // 
             // author4Button
             // 
@@ -456,7 +456,7 @@
             this.author4Button.TabIndex = 42;
             this.author4Button.Text = "x";
             this.author4Button.UseVisualStyleBackColor = true;
-            this.author4Button.Click += new System.EventHandler(this.button2_Click);
+            this.author4Button.Click += new System.EventHandler(this.btnauthorx_Click);
             // 
             // author2Button
             // 
@@ -466,7 +466,7 @@
             this.author2Button.TabIndex = 43;
             this.author2Button.Text = "x";
             this.author2Button.UseVisualStyleBackColor = true;
-            this.author2Button.Click += new System.EventHandler(this.button3_Click);
+            this.author2Button.Click += new System.EventHandler(this.btnauthorx_Click);
             // 
             // author3Button
             // 
@@ -476,7 +476,7 @@
             this.author3Button.TabIndex = 44;
             this.author3Button.Text = "x";
             this.author3Button.UseVisualStyleBackColor = true;
-            this.author3Button.Click += new System.EventHandler(this.button4_Click);
+            this.author3Button.Click += new System.EventHandler(this.btnauthorx_Click);
             // 
             // titlesForm
             // 
@@ -495,7 +495,7 @@
             this.Controls.Add(this.publisherCombo);
             this.Controls.Add(this.author4Combo);
             this.Controls.Add(this.author3Combo);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.author1Combox);
             this.Controls.Add(this.author2Combo);
             this.Controls.Add(this.isbnText);
             this.Controls.Add(this.publishersButton);
@@ -565,7 +565,7 @@
         private System.Windows.Forms.Button publishersButton;
         private System.Windows.Forms.MaskedTextBox isbnText;
         private System.Windows.Forms.ComboBox author2Combo;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox author1Combox;
         private System.Windows.Forms.ComboBox author3Combo;
         private System.Windows.Forms.ComboBox author4Combo;
         private System.Windows.Forms.ComboBox publisherCombo;
