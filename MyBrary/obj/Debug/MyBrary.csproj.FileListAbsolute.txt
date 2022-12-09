@@ -12,3 +12,4 @@ C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.exe
 C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.pdb
 C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Books.accdb
 C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.titlesForm.resources
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.searchForm.resources

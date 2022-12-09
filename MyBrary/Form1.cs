@@ -353,7 +353,11 @@ namespace MyBrary
 
             else
             {
-                authorsManager.Position = authorsTable.DefaultView.Find(foundRecords[0]["Author"]);
+                searchForm srchForm = new searchForm(foundRecords, "Authors");
+                srchForm.ShowDialog();
+                var index = srchForm.Index;
+
+                authorsManager.Position = authorsTable.DefaultView.Find(foundRecords[index]["Author"]);
             }
         }
 

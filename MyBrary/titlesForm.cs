@@ -311,7 +311,11 @@ namespace MyBrary
             }
             else
             {
-                titlesManager.Position = titlesTable.DefaultView.Find(foundRecords[0]["Title"]);
+
+                searchForm srchForm = new searchForm(foundRecords, "Titles");
+                srchForm.ShowDialog();
+                var index = srchForm.Index;
+                titlesManager.Position = titlesTable.DefaultView.Find(foundRecords[index]["Title"]); //to display the first result
                 GetAuthors();
             }
 
@@ -571,7 +575,5 @@ namespace MyBrary
 
 
         }
-
-
     }
 }

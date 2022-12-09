@@ -354,7 +354,11 @@ namespace MyBrary
             }
             else
             {
-                pubManager.Position = pubTable.DefaultView.Find(foundRecords[0]["Name"]);
+                searchForm srchForm = new searchForm(foundRecords, "Publishers");
+                srchForm.ShowDialog();
+                var index = srchForm.Index;
+
+                pubManager.Position = pubTable.DefaultView.Find(foundRecords[index]["Name"]);
             }
 
 

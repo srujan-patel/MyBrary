@@ -79,6 +79,12 @@
     <Compile Include="PublisherForm.Designer.cs">
       <DependentUpon>PublisherForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="searchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="searchForm.Designer.cs">
+      <DependentUpon>searchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="titlesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </Compile>
     <EmbeddedResource Include="PublisherForm.resx">
       <DependentUpon>PublisherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="searchForm.resx">
+      <DependentUpon>searchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="titlesForm.resx">
       <DependentUpon>titlesForm.cs</DependentUpon>
