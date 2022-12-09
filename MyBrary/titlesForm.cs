@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -570,6 +571,78 @@ namespace MyBrary
             publisherCombo.DisplayMember = "Name";//display name
             publisherCombo.ValueMember = "PUbID";//underlying value is pubid
             publisherCombo.DataBindings.Add("SelectedValue", titlesTable, "PubID"); //bind the selected value in the publisher table to titles table publishers
+
+
+
+
+        }
+
+        private void printRecord_Click(object sender, EventArgs e)
+        {
+            PrintDocument recordDocument= new PrintDocument();
+            recordDocument.DocumentName = "Titles Record";
+            recordDocument.PrintPage+= new PrintPageEventHandler(this.PrintRecordPage);
+            recordDocument.Print();
+            recordDocument.Dispose();
+
+        }
+
+        private void PrintRecordPage(object sender, PrintPageEventArgs e)
+        {
+            Pen myPen = new Pen(Color.Black);
+            e.Graphics.DrawRectangle(myPen, e.MarginBounds.Left, e.MarginBounds.Top, e.MarginBounds.Width, 100);
+            string s = "BOOKS DATABASE";
+            Font myFont = new Font("Arial", 14, FontStyle.Bold);
+
+            SizeF sSize= e.Graphics.MeasureString(s, myFont);
+            e.Graphics.DrawString(s, myFont, Brushes.Black, e.MarginBounds.Left + Convert.ToInt32(0.5 * (e.MarginBounds.Width - sSize.Width)), e.MarginBounds.Top + Convert.ToInt32(0.5 * (100 - sSize.Height)));
+
+            myFont = new Font("Arial", 12, FontStyle.Regular);
+            int y = 300;
+            int dy = Convert.ToInt32(e.Graphics.MeasureString("S", myFont).Height);
+            e.Graphics.DrawString("Title: " + titlesText.Text, myFont, Brushes.Magenta, e.MarginBounds.Left, y);
+
+            y+= 2*dy;
+            e.Graphics.DrawString("Authors: ", myFont, Brushes.Magenta, e.MarginBounds.Left, y);
+
+            int x = e.MarginBounds.Left + Convert.ToInt32(e.Graphics.MeasureString("authors: ", myFont).Width);
+
+            if (ISBNAuthorsTable.Rows.Count != 0)
+            {
+                for(int i=0; i < ISBNAuthorsTable.Rows.Count; i++)
+                {
+                    e.Graphics.DrawString(authorCombo[i].Text, myFont, Brushes.Magenta,x,y);
+                    y += dy;
+                }
+            }
+            else
+            {
+                e.Graphics.DrawString("NONE", myFont, Brushes.Magenta, x, y);
+                y+= dy;
+            }
+
+            x = e.MarginBounds.Left;
+            y += dy;
+
+            e.Graphics.DrawString("ISBN: " + isbnText.Text, myFont, Brushes.Magenta, x, y);
+            y += 2*dy;
+
+            e.Graphics.DrawString("Year Published: " + yearText.Text, myFont, Brushes.Magenta, x, y);
+            y+= 2*dy;
+
+            e.Graphics.DrawString("Publisher: " + publisherCombo.Text, myFont, Brushes.Magenta, x, y);
+            y += 2 * dy;
+
+            e.Graphics.DrawString("Description: " + descriptionText.Text, myFont, Brushes.Magenta, x, y);
+            y += 2 * dy;
+
+            e.Graphics.DrawString("Notes: " + notesText.Text, myFont, Brushes.Magenta, x, y);
+            y += 2 * dy;
+
+            e.Graphics.DrawString("Subject: " + subjectText.Text, myFont, Brushes.Magenta, x, y);
+            y += 2 * dy;
+            e.HasMorePages = false;
+
 
 
 

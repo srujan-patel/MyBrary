@@ -69,6 +69,7 @@
             this.author4Button = new System.Windows.Forms.Button();
             this.author2Button = new System.Windows.Forms.Button();
             this.author3Button = new System.Windows.Forms.Button();
+            this.printRecord = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // titlesText
@@ -478,11 +479,22 @@
             this.author3Button.UseVisualStyleBackColor = true;
             this.author3Button.Click += new System.EventHandler(this.btnauthorx_Click);
             // 
+            // printRecord
+            // 
+            this.printRecord.Location = new System.Drawing.Point(526, 573);
+            this.printRecord.Name = "printRecord";
+            this.printRecord.Size = new System.Drawing.Size(87, 29);
+            this.printRecord.TabIndex = 45;
+            this.printRecord.Text = "Print ";
+            this.printRecord.UseVisualStyleBackColor = true;
+            this.printRecord.Click += new System.EventHandler(this.printRecord_Click);
+            // 
             // titlesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 679);
+            this.Controls.Add(this.printRecord);
             this.Controls.Add(this.author3Button);
             this.Controls.Add(this.author2Button);
             this.Controls.Add(this.author4Button);
@@ -578,5 +590,6 @@
         private System.Windows.Forms.Button author4Button;
         private System.Windows.Forms.Button author2Button;
         private System.Windows.Forms.Button author3Button;
+        private System.Windows.Forms.Button printRecord;
     }
 }
