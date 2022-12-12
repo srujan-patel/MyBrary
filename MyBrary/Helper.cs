@@ -82,4 +82,27 @@ namespace MyBrary
         }
 
     }
+
+    [Serializable]
+    public class BookObject
+    {
+        public BookObject()
+        {
+            authors = new List<string>(); // init authors in constructor
+        }
+        public string id { get; set; }
+        public string title { get; set; }
+        public List<string> authors { get; set; }
+        public string publisher { get; set; }
+        public string publishedDate { get; set; }
+        public int pageCount { get; set; }
+
+        // Availability
+        public bool pdfAvailable { get; set; }
+        public string pdfLink { get; set; }
+        public bool epubAvailable { get; set; }
+        public string epubLink { get; set; }
+        public string forSale { get; set; }
+        public string saleLink { get; set; }
+    }
 }

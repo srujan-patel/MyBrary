@@ -16,7 +16,8 @@ namespace MyBrary
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new titlesForm());
+            Application.Run(new GoogleSearch());
+
         }
     }
 }

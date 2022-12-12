@@ -13,3 +13,11 @@ C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.pdb
 C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Books.accdb
 C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.titlesForm.resources
 C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.searchForm.resources
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.GoogleSearch.resources
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.Bson.dll
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.Bson.pdb
+C:\Users\Srujan Patel\MyBrary\MyBrary\bin\Debug\Newtonsoft.Json.Bson.xml
+C:\Users\Srujan Patel\MyBrary\MyBrary\obj\Debug\MyBrary.csproj.CopyComplete
