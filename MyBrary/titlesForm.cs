@@ -648,5 +648,14 @@ namespace MyBrary
 
 
         }
+
+        private void googleButton_Click(object sender, EventArgs e)
+        {
+
+            GoogleSearch searchForm = new GoogleSearch();
+            searchForm.ShowDialog();
+            searchForm.Dispose();
+            booksConnection.Close();
+        }
     }
 }

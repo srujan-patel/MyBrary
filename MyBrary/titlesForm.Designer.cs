@@ -70,6 +70,7 @@
             this.author2Button = new System.Windows.Forms.Button();
             this.author3Button = new System.Windows.Forms.Button();
             this.printRecord = new System.Windows.Forms.Button();
+            this.googleButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // titlesText
@@ -489,11 +490,22 @@
             this.printRecord.UseVisualStyleBackColor = true;
             this.printRecord.Click += new System.EventHandler(this.printRecord_Click);
             // 
+            // googleButton
+            // 
+            this.googleButton.Location = new System.Drawing.Point(378, 619);
+            this.googleButton.Name = "googleButton";
+            this.googleButton.Size = new System.Drawing.Size(165, 29);
+            this.googleButton.TabIndex = 46;
+            this.googleButton.Text = "Google Search";
+            this.googleButton.UseVisualStyleBackColor = true;
+            this.googleButton.Click += new System.EventHandler(this.googleButton_Click);
+            // 
             // titlesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 679);
+            this.Controls.Add(this.googleButton);
             this.Controls.Add(this.printRecord);
             this.Controls.Add(this.author3Button);
             this.Controls.Add(this.author2Button);
@@ -591,5 +603,6 @@
         private System.Windows.Forms.Button author2Button;
         private System.Windows.Forms.Button author3Button;
         private System.Windows.Forms.Button printRecord;
+        private System.Windows.Forms.Button googleButton;
     }
 }
