@@ -9,5 +9,4 @@ A C# .NET application allowing users to manage books related records stored in a
 ![Printed Record](PrintedRecord.png)
 
 
-![Google API](Google Search API)
 ![Printed Record](GoogleSearch.png)
